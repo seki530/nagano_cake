@@ -1,40 +1,34 @@
 Rails.application.routes.draw do
-  namespace :public do
-    get 'orders/new'
-    get 'orders/index'
-    get 'orders/show'
-  end
-  namespace :public do
+
+   scope module: :public do
+    root to: 'homes#top'
+    get 'homes/about'
+
+    resources :orders, only: [:create, :new, :index, :show]
+
+    resources :cart_items, only: [:index, :create, :update, :destroy]
+    delete 'cart_items' => 'cart_items#destroy_all', as: 'destroy_all'
+
     get 'customers/show'
     get 'customers/edit'
     get 'customers/check'
     patch 'customers/withdraw'
-  end
-  namespace :public do
-    get 'homes/top'
-    get 'homes/about'
-  end
-  namespace :public do
+    patch 'customers/update'
+
     get 'items/index'
     get 'items/show'
   end
+
   namespace :admin do
+    get "homes/top"
+
+    resources :items, only: [:show, :index, :new, :create, :edit, :update]
+
+    resources :customers, only: [:index, :edit, :update, :show]
+
     get 'orders/show'
   end
-  namespace :admin do
-    get 'customers/index'
-    get 'customers/show'
-    get 'customers/edit'
-  end
-  namespace :admin do
-    get 'items/index'
-    get 'items/new'
-    get 'items/show'
-    get 'items/edit'
-  end
-  namespace :admin do
-    root to: "homes#top"
-  end
+
   devise_for :customers,skip: [:passwords], controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'
@@ -44,4 +38,4 @@ Rails.application.routes.draw do
   sessions: "admin/sessions"
 }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-end
+  end
