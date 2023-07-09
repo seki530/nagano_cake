@@ -4,7 +4,7 @@
 　<div class= "mx-auto">
 　 <table>
 　  <tbody>
-     <%= form_with model: @item,url:admin_item_path do |f| %>
+     <%= form_for(@item, url: admin_item_path) do |f| %>
       <tr>
        <th><h4>商品画像</h4></th>
        <td><%= f.file_field :image %></td>
@@ -24,9 +24,8 @@
        <th><h4>税抜き価格</h4></th>
        <td><%= f.text_area :price, class: "form-control" %></td>
       </tr>
-      
       </tbody>
  　　</table>
-  <%= f.submit "変更を保存" %>
-
+ 　　<%= f.submit "変更を保存" %>
+ 　　
 <% end %>
