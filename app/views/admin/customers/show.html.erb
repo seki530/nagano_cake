@@ -1,7 +1,7 @@
 <div class="container">
  <div class="row">
    <div class="col-12">
-     <h2><%= @customer.last_name + "　"  + @customer.first_name %>さんの会員詳細</h2>
+     <h3><%= @customer.last_name + "　"  + @customer.first_name %>さんの会員詳細</h3>
    </div>
   </div>
 
@@ -46,20 +46,6 @@
    <td class="col-xs-10"><%= @customer.email %>
   </tr>
 
-  <tr>
-   <th>会員ステータス</th>
-   <td>
-    <% if @customer.is_deleted == false %>
-      <span class="label label-primary">
-       有効
-      </span>
-    <% else %>
-      <span class="label label-danger">
-        退会済み
-      </span>
-    <% end %>
-   </td>
-  </tr>
 </table>
 
   <div class="row">

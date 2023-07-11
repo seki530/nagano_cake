@@ -7,6 +7,9 @@
 
  <div class="col-4">
    <div class="mt-5">
+    
+    <%= form_for(@cart_item , url: cart_items_path(item_id: @item), method: :post) do |form| %>
+    
     <table>
      <tbody>
 
@@ -27,3 +30,10 @@
      </tbody>
     </table>
 </div>
+
+数量を選択して下さい。</br>
+
+<p><%= format.select :amount, [['いち',1], ['に',2], ['さん',3]] %></p>
+<p><%= form.submit "カートに入れる", class:"btn btn-primary" %></p>
+
+<% end %>

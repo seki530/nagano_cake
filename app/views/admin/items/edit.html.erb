@@ -2,9 +2,11 @@
  <div class="row">
 　<h2>商品編集</h2>
 　<div class= "mx-auto">
+　 
+　 <%= form_for(@item, url: admin_item_path) do |f| %>
+　 
 　 <table>
 　  <tbody>
-     <%= form_for(@item, url: admin_item_path) do |f| %>
       <tr>
        <th><h4>商品画像</h4></th>
        <td><%= f.file_field :image %></td>

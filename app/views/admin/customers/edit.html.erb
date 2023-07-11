@@ -1,2 +1,53 @@
-<h1>Admin::Customers#edit</h1>
-<p>Find me in app/views/admin/customers/edit.html.erb</p>
+<div class="container">
+ <div class="row">
+   <div class="col-12">
+     <h3><%= @customer.last_name + "　"  + @customer.first_name %>さんの会員情報編集</h3>
+   </div>
+  </div>
+
+  <%= form_for(@customer, url: admin_customer_path) do |f| %>
+
+<table class="row table">
+
+  <tr>
+   <th>会員ID</th>
+   <td class="col-xs-10"><%= @customer.id %>
+  </tr>
+
+  <tr>
+   <th>氏名</th>
+   <td class="col-xs-10"><%= f.text_field :last_name %>
+   <%= f.text_field :first_name %>
+  </tr>
+
+  <tr>
+   <th>フリガナ</th>
+   <td class="col-xs-10"><%= f.text_field :last_name_kana %>
+   <%= f.text_field :first_name_kana %>
+  </tr>
+
+  <tr>
+   <tr>
+   <th>郵便番号</th>
+   <td class="col-xs-10"><%= f.text_field :postal_code %>
+  </tr>
+
+  <tr>
+   <th>住所</th>
+   <td class="col-xs-10"><%= f.text_field :address %>
+  </tr>
+
+  <tr>
+   <th>電話番号</th>
+   <td class="col-xs-10"><%= f.text_field :telephone_number %>
+  </tr>
+
+  <tr>
+   <th>メールアドレス</th>
+   <td class="col-xs-10"><%= f.text_field :email %>
+  </tr>
+
+</table>
+　<%= f.submit "変更を保存" %>
+
+<% end %>
