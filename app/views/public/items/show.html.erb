@@ -7,9 +7,7 @@
 
  <div class="col-4">
    <div class="mt-5">
-    
-    <%= form_for(@cart_item , url: cart_items_path(item_id: @item), method: :post) do |form| %>
-    
+
     <table>
      <tbody>
 
@@ -20,7 +18,7 @@
        <tr>
         <td><h3><%= @item.introduction %></h3></td>
        </tr>
-       
+
 
        <tr>
         <td><h3>¥<%= (@item.price*1.1).floor %></h3></td>
@@ -33,7 +31,10 @@
 
 数量を選択して下さい。</br>
 
-<p><%= format.select :amount, [['いち',1], ['に',2], ['さん',3]] %></p>
-<p><%= form.submit "カートに入れる", class:"btn btn-primary" %></p>
+<%= form_with model: @cart_item, url: cart_items_path, local:true do |f| %>
+
+ <%= f.hidden_field :item_id, :value => @item.id %>
+ <p><%= f.select :amount, [['1個', 1], ['2個', 2], ['3個', 3], ['4個', 4], ['5個', 5], ['6個', 6], ['7個', 7], ['8個', 8], ['9個', 9]] %></p>
+ <p><%= f.submit "カートに入れる", class:"btn btn-primary" %></p>
 
 <% end %>

@@ -5,11 +5,11 @@
 
 <div class= "row">
 <div class= "mx-auto">
+
+<%= form_with model: @item,url:admin_items_path do |f| %>
  <table>
    <tbody>
 
-
-    <%= form_with model: @item,url:admin_items_path do |f| %>
      <tr>
        <th><h4>商品画像</h4></th>
        <td><%= f.file_field :image %></td>

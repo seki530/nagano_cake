@@ -15,8 +15,7 @@ Rails.application.routes.draw do
     patch 'customers/withdraw'
     patch 'customers/update'
 
-    get 'items/index'
-    get 'items/show'
+    resources :items, only: [:show, :index]
   end
 
   namespace :admin do
