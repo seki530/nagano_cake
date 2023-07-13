@@ -2,6 +2,7 @@ class Public::CartItemsController < ApplicationController
 
   def index
     @cart_items = current_customer.cart_items
+    @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
   end
 
 
@@ -16,9 +17,9 @@ class Public::CartItemsController < ApplicationController
 
 
   def update
-    cart_item = CartItem.find(params[:id])
-    cart_item.update(cart_item_params)
-    redirect_to cart_items_path
+    @cart_item = CartItem.find(params[:id])
+    @cart_item.update(cart_item_params)
+    redirect_to cart_items_path(@cart_item)
   end
 
 
@@ -30,6 +31,9 @@ class Public::CartItemsController < ApplicationController
 
 
   def destroy_all
+     @cart_item = current_customer.cart_items
+     @cart_item.destroy_all
+     redirect_to cart_items_path
   end
 
 
@@ -38,5 +42,5 @@ end
 
 private
   def cart_item_params
-      params.permit(:item_id, :amount)
+      params.permit(:item_id, :amount, :customer_id)
   end
