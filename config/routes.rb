@@ -4,7 +4,10 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get 'homes/about'
 
-    resources :orders, only: [:create, :new, :index, :show]
+    resources :orders, only: [:index, :show, :new, :create, :confirm, :complete]
+
+    post 'orders/confirm'
+    get 'orders/complete'
 
     resources :cart_items, only: [:index, :create, :update, :destroy]
     delete 'cart_items' => 'cart_items#destroy_all', as: 'destroy_all'
