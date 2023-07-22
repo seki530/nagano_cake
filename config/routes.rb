@@ -3,11 +3,11 @@ Rails.application.routes.draw do
    scope module: :public do
     root to: 'homes#top'
     get 'homes/about'
-
-    resources :orders, only: [:index, :show, :new, :create, :confirm, :complete]
-
     post 'orders/confirm'
     get 'orders/complete'
+    resources :orders, only: [:new, :create, :confirm, :complete, :index, :show]
+
+
 
     resources :cart_items, only: [:index, :create, :update, :destroy]
     delete 'cart_items' => 'cart_items#destroy_all', as: 'destroy_all'
@@ -22,8 +22,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    get "homes/top"
-
+    get "/" => "homes#top"
+    root to: 'homes#top'
     resources :items, only: [:show, :index, :new, :create, :edit, :update]
 
     resources :customers, only: [:index, :edit, :update, :show]
