@@ -4,17 +4,17 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
-    @order.save
+    order = Order.new(order_params)
+    order.save
     @cart_items = current_customer.cart_items.all
 
     @cart_items.each do |cart_item|
       @order_details = OrderDetail.new
-      @order_details.order_id = @order.id
+      @order_details.order_id = order.id
       @order_details.item_id = cart_item.item.id
       @order_details.price = cart_item.item.price
       @order_details.amount = cart_item.amount
-      @order_details.save
+      @order_details.save!
     end
 
     CartItem.destroy_all
@@ -29,7 +29,6 @@ class Public::OrdersController < ApplicationController
     @cart_items = current_customer.cart_items
     @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
     @order.address = current_customer.address
-    @order.customer_id = current_customer.id
     @order.name = current_customer.last_name + current_customer.first_name
     @cart_items = current_customer.cart_items
 
@@ -50,5 +49,5 @@ end
 
 private
    def order_params
-       params.require(:order).permit(:payment, :postage, :postal_code, :address, :name, :billing_amount)
+       params.require(:order).permit(:payment, :postage, :postal_code, :address, :name, :billing_amount, :customer_id)
    end

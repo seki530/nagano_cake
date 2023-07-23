@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
     resources :customers, only: [:index, :edit, :update, :show]
 
-    get 'orders/show'
+    get 'orders/show'  => "orders#show"
   end
 
   devise_for :customers,skip: [:passwords], controllers: {
