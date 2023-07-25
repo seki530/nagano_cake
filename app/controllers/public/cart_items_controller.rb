@@ -10,29 +10,26 @@ class Public::CartItemsController < ApplicationController
   def create
     @cart_item = CartItem.new(cart_item_params)
     @cart_item.customer_id = current_customer.id
-    
-    if current_customer.cart_items.find_by(item_id: params[:item_id]).present?
+    @cart_item.item_id = cart_item_params[:item_id]
+  if current_customer.cart_items.find_by(item_id: params[:item_id]).present?
       @cart_item = current_customer.cart_items.find_by(item_id: params[:item_id])
       @cart_item.amount += params[:amount].to_i
-      @cart_item.save
-      flash[:notice] = "商品の個数が変更されました！"
-      redirect_to cart_items_path
-      
-    elsif 
+      @cart_item.update(amount: @cart_item.amount)
       @cart_item.save
       redirect_to cart_items_path
-      
-    else
+
+  else
+      @cart_item.save
       redirect_to cart_items_path
-    end
+  end
 
   end
 
 
   def update
-    @cart_item = CartItem.find(params[:id])
-    @cart_item.update(cart_item_params)
-    redirect_to cart_items_path(@cart_item)
+    cart_item = CartItem.find(params[:id])
+    cart_item.update!(cart_item_params)
+     redirect_to cart_items_path(@cart_item)
   end
 
 
@@ -51,9 +48,11 @@ class Public::CartItemsController < ApplicationController
 
 
 
-end
+
 
 private
   def cart_item_params
-      params.permit(:item_id, :amount, :customer_id)
+      params.require(:cart_item).permit(:item_id, :amount, :customer_id)
   end
+
+end
