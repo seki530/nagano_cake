@@ -15,7 +15,7 @@
 
     <tr>
       <th>注文日</td>
-      <td><%=  @order.created_at %></td>
+      <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
     </tr>
 
     <tr>
@@ -30,10 +30,10 @@
     </tr>
 
   </table>
-  
+
   <br>
 <div class="row">
- <div class="col-5">
+ <div class="col-7">
   <table class="table">
 
   <tr>
@@ -43,12 +43,12 @@
     <th>小計</th>
   </tr>
    <% @order_details.each do |order_detail| %>
-
+  <tr>
    <td><%= order_detail.item.name %></td>
    <td><%= (order_detail.price*1.1).floor %></td>
    <td><%= order_detail.amount %></td>
    <td><%= ((order_detail.price*1.1).floor * order_detail.amount).floor.to_s(:delimited, delimiter: ',') %></td>
-
+  </tr>
   <% end %>
 
 </table>
